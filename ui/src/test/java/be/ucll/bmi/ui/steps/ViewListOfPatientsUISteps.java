@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 @CucumberContextConfiguration
-@SpringBootTest(classes=PatientApplication.class, webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = PatientApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ViewListOfPatientsUISteps extends UISteps {
 
     @LocalServerPort
@@ -38,6 +38,37 @@ public class ViewListOfPatientsUISteps extends UISteps {
         tearDownTest();
     }
 
+    @Given("there are registered patients")
+    public void there_are_registered_patients() {
+        List<Patient> patients = patientRepository.findAll();
+        context.setPatients(patients);
+    }
 
+    @When("Martha consults the list of patients")
+    public void martha_consults_the_list_of_patients() {
+        PatientsOverviewPage patientsOverviewPage = new PatientsOverviewPage();
+        patientsOverviewPage.open();
+    }
+
+    @Then("Martha should get a list of all patients")
+    public void martha_should_get_a_list_of_all_patients() {
+        PatientsOverviewPage patientsOverviewPage = new PatientsOverviewPage();
+        assertTrue(patientsOverviewPage.isOpen());
+        List<Patient> patients = context.getPatients();
+        assertTrue(patientsOverviewPage.arePatientsDisplayed(patients));
+    }
+
+    @Given("there are no registered patients")
+    public void there_are_no_registered_patients() {
+        patientRepository.deleteAll();
+    }
+
+    @Then("Martha should get a message explaining that there are no registered patients yet")
+    public void martha_should_get_a_message_explaining_that_there_are_no_registered_patients_yet() {
+        PatientsOverviewPage patientsOverviewPage = new PatientsOverviewPage();
+        assertTrue(patientsOverviewPage.isOpen());
+        String expectedMessage = getMessage("no.patients");
+        assertTrue(patientsOverviewPage.displaysMessage(expectedMessage));
+    }
 }
 
