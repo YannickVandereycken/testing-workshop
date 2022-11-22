@@ -4,8 +4,11 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.spring.SpringFactory;
 import org.junit.runner.RunWith;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
 
-@RunWith(Cucumber.class)
+
+//@RunWith(Cucumber.class)
+@RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         features = {"../patient/src/test/resources/features"},
         glue = {"be/ucll/bmi/ui", "be/ucll/bmi/config"},

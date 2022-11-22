@@ -32,11 +32,12 @@ public class TypeRegistry {
 
     @DataTableType
     public Examination examinationEntry(Map<String, String> entry) {
-        Integer length = null;
+        //| length | weight | examination date |
+        Integer length = Integer.valueOf(entry.get("length"));
 
-        Integer weight = null;
+        Integer weight = Integer.valueOf(entry.get("weight"));
 
-        LocalDate examinationDate = null;
+        LocalDate examinationDate = LocalDate.parse(entry.get("examination date"), dateFormatter);
 
         return new Examination(length, weight, examinationDate);
     }

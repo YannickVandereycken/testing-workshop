@@ -2,9 +2,11 @@ package be.ucll.bmi.ui.context;
 
 import be.ucll.bmi.model.Examination;
 import be.ucll.bmi.model.Patient;
+import org.openqa.selenium.WebElement;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -20,7 +22,9 @@ public class UITestContext {
 
     private LocalDate examinationDate;
 
-    public void reset(){
+    private List<WebElement> errors;
+
+    public void reset() {
         patient = null;
         patients = null;
 
@@ -29,6 +33,8 @@ public class UITestContext {
         length = null;
         weight = null;
         examinationDate = null;
+
+        errors = new ArrayList<>();
     }
 
     public Patient getPatient() {
@@ -77,5 +83,13 @@ public class UITestContext {
 
     public void setExaminationDate(LocalDate examinationDate) {
         this.examinationDate = examinationDate;
+    }
+
+    public List<WebElement> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<WebElement> errors) {
+        this.errors = errors;
     }
 }

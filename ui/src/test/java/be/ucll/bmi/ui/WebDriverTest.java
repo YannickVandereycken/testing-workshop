@@ -1,5 +1,6 @@
 package be.ucll.bmi.ui;
 
+import io.cucumber.java.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -24,5 +25,6 @@ public class WebDriverTest {
         WebDriver driver = new ChromeDriver();
         driver.get("https://research-expertise.ucll.be");
         assertTrue(driver.getTitle().contains("UCLL"));
+        driver.close();
     }
 }
